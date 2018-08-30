@@ -45,10 +45,9 @@ public class DeveloperRunner {
             System.out.println(developer);
         }
         System.out.println("===================================");
-
     }
 
-    public void addDeveloper(String firstName, String lastName, String specialty, int experience) {
+    private void addDeveloper(String firstName, String lastName, String specialty, int experience) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
@@ -59,8 +58,8 @@ public class DeveloperRunner {
         session.close();
     }
 
-    public List listDevelopers() {
-        Session session = this.sessionFactory.openSession();
+    private List listDevelopers() {
+        Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
         transaction = session.beginTransaction();
@@ -71,12 +70,12 @@ public class DeveloperRunner {
         return developers;
     }
 
-    public void updateDeveloper(int developerId, int experience) {
-        Session session = this.sessionFactory.openSession();
+    private void updateDeveloper(int developerId, int experience) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
         transaction = session.beginTransaction();
-        Developer developer = (Developer) session.get(Developer.class, developerId);
+        Developer developer = session.get(Developer.class, developerId);
         developer.setExperience(experience);
         session.update(developer);
         transaction.commit();
@@ -84,11 +83,11 @@ public class DeveloperRunner {
     }
 
     public void removeDeveloper(int developerId) {
-        Session session = this.sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
         transaction = session.beginTransaction();
-        Developer developer = (Developer) session.get(Developer.class, developerId);
+        Developer developer = session.get(Developer.class, developerId);
         session.delete(developer);
         transaction.commit();
         session.close();
